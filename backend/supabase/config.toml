@@ -1,0 +1,66 @@
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+
+[functions.search-restaurants]
+verify_jwt = true
+
+[functions.restaurant-detail]
+verify_jwt = true
+
+[functions.log-visit]
+verify_jwt = true
+
+[functions.schedule-reminder]
+verify_jwt = true
+
+[functions.import-email]
+verify_jwt = false  # webhook from Resend; authenticated via RESEND_WEBHOOK_SECRET + Svix signature
+
+[functions.send-push]
+verify_jwt = false  # called internally by cron
+
+[functions.import-instagram]
+verify_jwt = true
+
+[functions.feed]
+verify_jwt = true
+
+[functions.stats]
+verify_jwt = true
