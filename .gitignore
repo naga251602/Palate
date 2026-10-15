@@ -14,3 +14,6 @@ backend/supabase/.branches/
 *.tar
 *.tar.gz
 *.tgz
+
+# Local iOS configuration
+App/Palate/Configuration/*.local.plist

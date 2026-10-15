@@ -1,10 +1,26 @@
 import Foundation
 
 // MARK: - Supabase Configuration
-// Replace with your actual Supabase project values
+// Local values are loaded from a Git-ignored bundled configuration file.
 struct SupabaseConfig {
-    static let url = "https://jwapqqhgxfesbebvekxj.supabase.co"
-    static let anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3YXBxcWhneGZlc2JlYnZla3hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNDk2NTUsImV4cCI6MjA5NDcyNTY1NX0.f-qWpAUM3swjI9M2cN3NMDKFpmAS1eJYqNSuQLjbU1c" // from Supabase Settings > API > anon key
+    private static let values: [String: String] = {
+        guard let fileURL = Bundle.main.url(forResource: "Supabase.local", withExtension: "plist"),
+              let data = try? Data(contentsOf: fileURL),
+              let config = try? PropertyListDecoder().decode([String: String].self, from: data) else {
+            fatalError("Missing Supabase.local.plist. Follow the README configuration steps.")
+        }
+        return config
+    }()
+
+    private static func required(_ key: String) -> String {
+        guard let value = values[key], !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            fatalError("Missing Supabase configuration value for \(key).")
+        }
+        return value
+    }
+
+    static let url = required("SUPABASE_URL")
+    static let anonKey = required("SUPABASE_ANON_KEY")
 }
 
 // MARK: - Supabase Client (lightweight, no SDK dependency)

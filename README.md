@@ -41,7 +41,7 @@ The client communicates with Supabase Auth, database REST endpoints, and Edge Fu
 1. Install full Xcode with an iOS SDK compatible with the project. The app target specifies iOS 18.6; the supplied project-level settings specify 26.5. Select an installed SDK and review deployment settings in Xcode before building.
 2. Open `App/Palate.xcodeproj` from this folder.
 3. Set your signing team and bundle identifier on the Palate target.
-4. Configure `SupabaseConfig` in `App/Palate/Services/SupabaseClient.swift` for your Supabase project. It currently contains the original project URL and public anon key. Never place a service-role key in the app.
+4. Copy `App/Documentation/Supabase.example.plist` to `App/Palate/Configuration/Supabase.local.plist` and fill in `SUPABASE_URL` and `SUPABASE_ANON_KEY`. The local file is excluded from Git and bundled by Xcode as a resource. The current local configuration has already been populated. These client values remain extractable from a built app; never place a service-role key in the app.
 5. Configure Location When In Use and Calendars Full Access usage descriptions in the target Info settings before exercising permission requests. The supplied active project does not include these descriptions; example wording exists in the preserved legacy project file.
 6. Enable Push Notifications and configure the appropriate provisioning/entitlements for APNs on a physical device. Match the backend APNs bundle identifier to the app.
 7. Select a simulator or device and run the Palate scheme.
